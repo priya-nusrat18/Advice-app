@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+
+import {  useState } from 'react';
 import './App.css';
 
 function App() {
+  const [quote, setQuote]=useState([]);
+  console.log(quote);
+
+  const newQuote =() =>{
+    fetch("https://api.adviceslip.com/advice")
+		.then((res) => res.json())
+		.then((data) => setQuote(data.slip.advice))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+		<div className="App">
+			<div className="card">
+				<h1 className="headings">{quote}</h1>
+				<button className="button" onClick={newQuote}>
+					<span>Give Me Advice!</span>
+				</button>
+			</div>
+		</div>
   );
 }
 
